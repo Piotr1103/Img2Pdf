@@ -20,8 +20,8 @@ def findPadLen(imgDir,fmt):
 	"""
 	for fn in il:
 		s = fn.split('\\')
-		z = s[1].split('.')
-		l.append(z[0])
+		#取得檔名本身
+		l.append(s[-1])
 	#依據名稱長度從數組中選出最長的檔名
 	return len(max(l,key=len))
 
@@ -35,19 +35,21 @@ def padFnLen(imgDir,fmt):
 	padLen = findPadLen(imgDir,fmt)
 	
 	for n in il:
-		s = n.split('\\')
-		#將目錄名稱存為pre變量
-		pre = s[0]
-		#將檔名和副檔名分割分別儲存
-		z = s[1].split('.')
-		suf = z[1]
 		"""
 		若檔名位數小於最大檔名位數則補上相應的0
 		補完後再把目錄名、檔名、副檔名組合起來，然後對來源目錄裡的原檔進行改名
 		"""
-		if len(z[0]) < padLen:
-			pad = padLen - len(z[0])
-			nn = pre + '\\' + '0'*pad + z[0] + '.' + suf
+		#將路徑拆分開來
+		s = n.split('\\')
+		#檔名本身
+		ns = s[-1]
+		#去除檔名本身，只保留路徑前綴
+		s.pop()
+		#路徑前綴重新組合
+		pre = "\\".join(s)
+		
+		if len(ns) < padLen:
+			nn = pre + "\\" + ns.rjust(padLen,'0')
 			os.rename(n,nn)
 
 """
