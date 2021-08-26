@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Aug 17 16:09:28 2021
-
-@author: Piotr
-"""
-
 from PyPDF2 import PdfFileWriter,PdfFileReader
 
 #解析書籤列物件並且打印出來

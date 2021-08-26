@@ -1,17 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Fri Jul 30 18:02:21 2021
-
-@author: Piotr
-"""
-
-# -*- coding: utf-8 -*-
-"""
-Created on Fri Jul 30 16:05:30 2021
-
-@author: Piotr
-"""
-
 import os
 import glob
 from fpdf import FPDF
