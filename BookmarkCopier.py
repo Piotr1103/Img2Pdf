@@ -1,5 +1,10 @@
 from PyPDF2 import PdfFileWriter,PdfFileReader
 
+"""
+f為書籤列所在檔案
+obj為欲解析對象物件
+lv為當前對象層級，用來搜尋整體物件層數
+"""
 #解析書籤列物件並且打印出來
 def dechain(f,obj,lv):
 	depth = lv
@@ -50,6 +55,7 @@ def getbooklines(filename):
 		pdf = PdfFileReader(f)
 		bookmarks = pdf.getOutlines()
 		for b in bookmarks:
+			#解析層級從第0層開始
 			c = dechainwrite(pdf,b,0)
 			booklines += c
 	return booklines
