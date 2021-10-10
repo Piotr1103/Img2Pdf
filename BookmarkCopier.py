@@ -44,7 +44,7 @@ def dechainwrite(f,obj,lv):
 			txt += ", type=/FitH"
 			txt += (", top="+str(obj['/Top']))
 		else:
-			txt += ", type=undefined"
+			txt += ", type=" + obj['/Type']
 		txt += "\n"
 	return txt
 
@@ -71,7 +71,8 @@ getbooklines函數輸出的書籤列字串文件格式有以下兩種：
 """
 
 #將書籤列加到另一個PDF檔上面
-def setbooklines(src,dst):
+#offset是目的PDF檔比來源PDF檔多或少的頁面數量，少了2頁的話輸入2，多了輸入-2
+def setbooklines(src,dst,offset):
 	#預設朝狀書籤列最多五層，設置一空數組以儲存父節點
 	par = [None,None,None,None,None]
 	#將輸入的來源PDF書籤列文件字串以行為單位分割
@@ -99,7 +100,11 @@ def setbooklines(src,dst):
 		lv = int(gct(bookmark[0]))
 		ttl = gct(bookmark[1])
 		#輸出的頁數加過1，在這裡要減回去
-		page = int(gct(bookmark[2]))-1
+		"""
+		預留功能接口
+		倘若遇到頁數發生變化，比如刪去2頁，那麼在被剪去頁面後的每個頁數都再減去2頁即可
+		"""
+		page = int(gct(bookmark[2]))-1-offset
 		tp = gct(bookmark[3])
 		#對齊縮放方式為/XYZ且帶有對齊座標參數top和left
 		if tp=='/XYZ' and len(bookmark)==6:
@@ -120,6 +125,8 @@ def setbooklines(src,dst):
 			cur = d.addBookmark(ttl,page,(None if lv==0 else par[lv-1]),None,False,False,'/XYZ',leftc,topc,None)
 		elif tp == '/FitH':
 			cur = d.addBookmark(ttl,page,(None if lv==0 else par[lv-1]),None,False,False,'/FitH',topc)
+		elif tp == '/FitV':
+			cur = d.addBookmark(ttl,page,(None if lv==0 else par[lv-1]),None,False,False,'/FitV',leftc)
 		#為避免尚未考慮的對齊格式出現的預設處理
 		else:
 			print('Type undefined!')
@@ -130,5 +137,5 @@ def setbooklines(src,dst):
 	d.write(outputStream)
 	outputStream.close()
 
-#print(getbooklines('./pdf/A.pdf'))
-setbooklines('./pdf/A.pdf','./pdf/B.pdf')
+print(getbooklines('./pdf/A.pdf'))
+setbooklines('./pdf/A.pdf','./pdf/B.pdf',2)
