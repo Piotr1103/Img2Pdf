@@ -25,11 +25,11 @@ def dechain(f,obj,lv):
 
 #解析書籤列物件並且以字符串形式返回
 def dechainwrite(f,obj,lv):
-	depth = lv
+	#depth = lv
 	txt = ''
 	if isinstance(obj,list):
 		for i in obj:
-			txt += dechainwrite(f,i,depth+1)
+			txt += dechainwrite(f,i,lv+1)
 	else:
 		txt += ("lv="+str(lv))
 		txt += (", title="+obj['/Title'])
