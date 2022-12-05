@@ -82,7 +82,7 @@ def img2pdf(imgDir,fmt):
 if __name__ == "__main__":
 	print('本轉檔器一次只能合併同樣類型的圖檔，比如全部都是jpg檔。')
 	print('下面請依序輸入所要轉檔的檔案所在目錄以及檔案類型。')
-	imgDir = input('請輸入目錄名或地址；')
-	fmt = input('請輸入來源檔案類型，不需要加點；')
+	imgDir = input('請輸入目錄名或地址：')
+	fmt = input('請輸入來源檔案類型，不需要加點：')
 	print('轉檔需要一些時間，請耐心等候……')
 	img2pdf(imgDir,fmt)
