@@ -16,3 +16,7 @@ for fn in il:
 	pre = '\\'.join(s)
 	nn = pre + "\\" + n
 	os.rename(fn, nn)
+
+"""
+考慮直接將原圖檔目錄在特定路徑上複製一個
+"""
